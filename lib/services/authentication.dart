@@ -1,12 +1,15 @@
 import 'package:hive/hive.dart';
 import 'package:todo_hive_bloc/model/user.dart';
 
-class Authentication {
+class AuthenticationService {
   Box<User>? _users;
 
   Future<void> init() async {
     Hive.registerAdapter(UserAdapter());
     _users = await Hive.openBox<User>('usersBox');
+
+    await _users!.clear();
+    await _users!.add(User(userName: 'ajayPangare', password: '123456'));
   }
 
   String? authenticateUser(final String username, final String password) {

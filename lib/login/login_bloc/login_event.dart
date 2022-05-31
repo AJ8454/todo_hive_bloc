@@ -13,3 +13,9 @@ class LoginAuthEvent extends LoginEvent {
   @override
   List<Object?> get props => [userName, password];
 }
+
+class RegisteringServiceEvent extends LoginEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
