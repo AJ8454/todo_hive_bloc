@@ -19,3 +19,13 @@ class RegisteringServiceEvent extends LoginEvent {
   // TODO: implement props
   List<Object?> get props => [];
 }
+
+class RegisterAccountEvent extends LoginEvent {
+  final String userName;
+  final String password;
+
+  const RegisterAccountEvent(this.userName, this.password);
+
+  @override
+  List<Object?> get props => [userName, password];
+}

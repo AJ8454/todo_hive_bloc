@@ -28,12 +28,22 @@ class LoginScreen extends StatelessWidget {
               builder: (context) => TodosPage(username: state.username),
             ));
           }
+          if (state is LoginInitial) {
+            if (state.error != null) {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                    title: const Text('Error'), content: Text(state.error!)),
+              );
+            }
+          }
         }, builder: (context, state) {
           if (state is LoginInitial) {
             return SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextField(
                       controller: userNameField,
@@ -47,11 +57,26 @@ class LoginScreen extends StatelessWidget {
                         labelText: 'Password',
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () => BlocProvider.of<LoginBloc>(context).add(
-                        LoginAuthEvent(userNameField.text, passwordField.text),
-                      ),
-                      child: const Text('LOGIN'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () =>
+                              BlocProvider.of<LoginBloc>(context).add(
+                            LoginAuthEvent(
+                                userNameField.text, passwordField.text),
+                          ),
+                          child: const Text('LOGIN'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () =>
+                              BlocProvider.of<LoginBloc>(context).add(
+                            RegisterAccountEvent(
+                                userNameField.text, passwordField.text),
+                          ),
+                          child: const Text('REGISTER'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
